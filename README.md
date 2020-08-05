@@ -1,0 +1,1 @@
+# msf-pal-alliance-report-generator
