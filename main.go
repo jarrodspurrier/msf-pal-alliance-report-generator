@@ -274,6 +274,18 @@ var (
 		},
 	}
 
+	wakandans = MSFTeam{
+		Name:  "Wakandans",
+		Label: "WAK",
+		Characters: []string{
+			"shuri",
+			"black-panther",
+			"killmonger",
+			"mbaku",
+			"okoye",
+		},
+	}
+
 	xForce = MSFTeam{
 		Name:  "X-Force",
 		Label: "XFORCE",
@@ -434,19 +446,19 @@ func getSheetsService() *sheets.Service {
 func generateTopWarOffenseTeamsByPlayerReport(playerCharactersMap map[string]MSFPlayerCharacters) {
 	teams := []MSFTeam{brotherhoodV2, fantasticFour, inhumans, powerArmorV2, supernatural, xForce, xMen}
 
-	updateSheet(generateAverageTeamPowerByPlayerReport(playerCharactersMap, teams, "OffenseV2"))
+	updateSheet(generateAverageTeamPowerByPlayerReport(playerCharactersMap, teams, "Offense"))
 }
 
 func generateTopWarDefenseTeamsByPlayerReport(playerCharactersMap map[string]MSFPlayerCharacters) {
 	teams := []MSFTeam{asgardian, hydra, marauders, mercenaries, shieldCoulson}
 
-	updateSheet(generateAverageTeamPowerByPlayerReport(playerCharactersMap, teams, "DefenseV2"))
+	updateSheet(generateAverageTeamPowerByPlayerReport(playerCharactersMap, teams, "Defense"))
 }
 
 func generateTopWarFlexTeamsByPlayerReport(playerCharactersMap map[string]MSFPlayerCharacters) {
-	teams := []MSFTeam{blackOrder, defenders, guardians, sinisterSix, symbiotes}
+	teams := []MSFTeam{blackOrder, defenders, guardians, sinisterSix, symbiotes, wakandans}
 
-	updateSheet(generateAverageTeamPowerByPlayerReport(playerCharactersMap, teams, "FlexV2"))
+	updateSheet(generateAverageTeamPowerByPlayerReport(playerCharactersMap, teams, "Flex"))
 }
 
 func generateAverageTeamPowerByPlayerReport(playerCharactersMap map[string]MSFPlayerCharacters, teams []MSFTeam, sheetName string) (writeRange string, valueRange *sheets.ValueRange) {
