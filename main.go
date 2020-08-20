@@ -96,6 +96,18 @@ var (
 
 	sheetCellIndexToLetter = []string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 
+	aim = MSFTeam{
+		Name:  "A.I.M.",
+		Label: "AIM",
+		Characters: []string{
+			"scientist-supreme",
+			"graviton",
+			"aim-monstruosity",
+			"aim-assualter",
+			"aim-security",
+		},
+	}
+
 	asgardian = MSFTeam{
 		Name:  "Asgardian",
 		Label: "ASG",
@@ -108,6 +120,18 @@ var (
 		},
 	}
 
+	avengers = MSFTeam{
+		Name:  "Avengers",
+		Label: "AVG",
+		Characters: []string{
+			"captain-america",
+			"captain-marvel",
+			"hulk",
+			"black-widow",
+			"hawkeye",
+		},
+	}
+
 	blackOrder = MSFTeam{
 		Name:  "Black Order",
 		Label: "BO",
@@ -117,6 +141,18 @@ var (
 			"cull-obsidian",
 			"corvus-glaive",
 			"proxima-midnight",
+		},
+	}
+
+	brawlers = MSFTeam{
+		Name:  "Brawlers",
+		Label: "BRAWL",
+		Characters: []string{
+			"america-chavez",
+			"squirrelgirl",
+			"miss-marvel",
+			"psylocke",
+			"wolverine",
 		},
 	}
 
@@ -137,6 +173,18 @@ var (
 		Label: "DEF",
 		Characters: []string{
 			"luke-cage",
+			"jessica-jones",
+			"iron-fist",
+			"daredevil",
+			"punisher",
+		},
+	}
+
+	defTron = MSFTeam{
+		Name:  "Deftron",
+		Label: "DEFTRON",
+		Characters: []string{
+			"ultron",
 			"jessica-jones",
 			"iron-fist",
 			"daredevil",
@@ -180,6 +228,17 @@ var (
 		},
 	}
 
+	hydraV2 = MSFTeam{
+		Name:  "Hydra V2",
+		Label: "HY2",
+		Characters: []string{
+			"hydra-grenadier",
+			"winter-soldier",
+			"kingpin",
+			"crossbones",
+		},
+	}
+
 	inhumans = MSFTeam{
 		Name:  "Inhumans",
 		Label: "INH",
@@ -201,6 +260,18 @@ var (
 			"emmafrost",
 			"mystique",
 			"stryfe",
+		},
+	}
+
+	mawTron = MSFTeam{
+		Name:  "Mawtron",
+		Label: "MAWTRON",
+		Characters: []string{
+			"ultron",
+			"ebony-maw",
+			"black-bolt",
+			"minn-erva",
+			"thanos",
 		},
 	}
 
@@ -271,6 +342,44 @@ var (
 			"spider-man-symbiote",
 			"carnage",
 			"venom",
+			"spider-man",
+			"spider-man-miles",
+		},
+	}
+
+	symTech = MSFTeam{
+		Name:  "SymTech",
+		Label: "SYMTECH",
+		Characters: []string{
+			"spider-man-symbiote",
+			"carnage",
+			"venom",
+			"scientist-supreme",
+			"shuri",
+		},
+	}
+
+	techWing = MSFTeam{
+		Name:  "TechWing",
+		Label: "TECHWING",
+		Characters: []string{
+			"ultron",
+			"scientist-supreme",
+			"shuri",
+			"minn-erva",
+			"falcon",
+		},
+	}
+
+	ultronsAngels = MSFTeam{
+		Name:  "Ultron's Angels",
+		Label: "ANGELTRON",
+		Characters: []string{
+			"ultron",
+			"shuri",
+			"scientist-supreme",
+			"invisible-woman",
+			"minn-erva",
 		},
 	}
 
@@ -415,6 +524,7 @@ func main() {
 	generateTopWarOffenseTeamsByPlayerReport(playerCharactersMap)
 	generateTopWarDefenseTeamsByPlayerReport(playerCharactersMap)
 	generateTopWarFlexTeamsByPlayerReport(playerCharactersMap)
+	generateTopU7RaidTeamsByPlayerReport(playerCharactersMap)
 }
 
 func getSheetsService() *sheets.Service {
@@ -444,21 +554,27 @@ func getSheetsService() *sheets.Service {
 }
 
 func generateTopWarOffenseTeamsByPlayerReport(playerCharactersMap map[string]MSFPlayerCharacters) {
-	teams := []MSFTeam{brotherhoodV2, fantasticFour, inhumans, powerArmorV2, supernatural, xForce, xMen}
+	teams := []MSFTeam{blackOrder, brotherhoodV2, defTron, fantasticFour, hydraV2, inhumans, powerArmorV2, supernatural, symbiotes, xForce, xMen}
 
 	updateSheet(generateAverageTeamPowerByPlayerReport(playerCharactersMap, teams, "Offense"))
 }
 
 func generateTopWarDefenseTeamsByPlayerReport(playerCharactersMap map[string]MSFPlayerCharacters) {
-	teams := []MSFTeam{asgardian, hydra, marauders, mercenaries, shieldCoulson}
+	teams := []MSFTeam{asgardian, hydra, marauders, mercenaries, shieldCoulson, avengers, brawlers, sinisterSix}
 
 	updateSheet(generateAverageTeamPowerByPlayerReport(playerCharactersMap, teams, "Defense"))
 }
 
 func generateTopWarFlexTeamsByPlayerReport(playerCharactersMap map[string]MSFPlayerCharacters) {
-	teams := []MSFTeam{blackOrder, defenders, guardians, sinisterSix, symbiotes, wakandans}
+	teams := []MSFTeam{aim, defenders, guardians, wakandans}
 
 	updateSheet(generateAverageTeamPowerByPlayerReport(playerCharactersMap, teams, "Flex"))
+}
+
+func generateTopU7RaidTeamsByPlayerReport(playerCharactersMap map[string]MSFPlayerCharacters) {
+	teams := []MSFTeam{mawTron, symTech, techWing, ultronsAngels}
+
+	updateSheet(generateAverageTeamPowerByPlayerReport(playerCharactersMap, teams, "U7"))
 }
 
 func generateAverageTeamPowerByPlayerReport(playerCharactersMap map[string]MSFPlayerCharacters, teams []MSFTeam, sheetName string) (writeRange string, valueRange *sheets.ValueRange) {
