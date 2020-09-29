@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -86,8 +87,8 @@ func (a ByAverageTotalTeamPower) Less(i, j int) bool {
 }
 
 const (
-	msfAllianceID = "10112006-6d29-48d9-8877-9faf91df83d9"
-	msfPalAPIKey  = "8c1cd6fc-7e90-467d-ba63-4a6492dc018f"
+	msfAllianceID = "cfd3496f-e18a-47c7-9d7c-49cc8ebc1134"
+	msfPalAPIKey  = "5514aabd-8b80-4213-8680-175affe91c7c"
 	spreadsheetID = "1p-nLLUjPpkNGiMunDCKryYgRtff8h_P_ag8nK7w7FkI"
 )
 
@@ -236,6 +237,7 @@ var (
 			"winter-soldier",
 			"kingpin",
 			"crossbones",
+			"zemo",
 		},
 	}
 
@@ -422,10 +424,15 @@ var (
 
 // Retrieve a token, saves the token, then returns the generated client.
 func getClient(config *oauth2.Config) *http.Client {
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+
 	// The file token.json stores the user's access and refresh tokens, and is
 	// created automatically when the authorization flow completes for the first
 	// time.
-	tokFile := "token.json"
+	tokFile := filepath.Join(filepath.Dir(ex), "token.json")
 	tok, err := tokenFromFile(tokFile)
 	if err != nil {
 		tok = getTokenFromWeb(config)
@@ -532,7 +539,12 @@ func getSheetsService() *sheets.Service {
 		return sheetsService
 	}
 
-	credentialsFile, err := ioutil.ReadFile("credentials.json")
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+
+	credentialsFile, err := ioutil.ReadFile(filepath.Join(filepath.Dir(ex), "credentials.json"))
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
 	}
